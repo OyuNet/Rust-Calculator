@@ -1,92 +1,49 @@
-use std::{io, num::ParseIntError};
+use std::io;
+use rust_input; // I wrote my own library to make things shorter and reusable.
 // I will try to write a basic calculator with selector. Good luck to me.
 fn main() {
     loop {
-        println!("Enter your desired option: \n1 - Summary\n2 - Subtraction\n3 - Multiplication\n4 - Dividing");
+        println!("Enter your desired option: \n1 - Summary\n2 - Subtraction\n3 - Multiplication\n4 - Dividing\n5 - Exponent\n6 - Exit");
         let mut user_input = String::new();
 
         io::stdin().read_line(&mut user_input).expect("You wrote so wrong thing man...");
         let user_input = user_input.trim();
         match user_input {
             "1" => {
-                let mut num1 = String::new();
-                let mut num2 = String::new();
-
-                println!("Enter your first number.");
-                io::stdin().read_line(&mut num1).expect("You wrote so wrong thing man...");
-                let num1: Result<i32, ParseIntError> = num1.trim().parse();
-                println!("Enter your second number.");
-                io::stdin().read_line(&mut num2).expect("You wrote so wrong thing man...");
-                let num2: Result<i32, ParseIntError> = num2.trim().parse();
-
-                match (num1, num2) {
-                    (Ok(n1), Ok(n2)) => {
-                        let result = summary(n1, n2);
-                        println!("Result: {}", result)
-                    }
-                    _ => println!("We encountered an error.")
-                }
+                let num1 = rust_input::int_input("Enter your first number:");
+                let num2 = rust_input::int_input("Enter your second number:");
+                let result = summary(num1, num2);
+                println!("{}", result);
             },
             "2" => {
-                let mut num1 = String::new();
-                let mut num2 = String::new();
-
-                println!("Enter your first number.");
-                io::stdin().read_line(&mut num1).expect("You wrote so wrong thing man...");
-                let num1: Result<i32, ParseIntError> = num1.trim().parse();
-                println!("Enter your second number.");
-                io::stdin().read_line(&mut num2).expect("You wrote so wrong thing man...");
-                let num2: Result<i32, ParseIntError> = num2.trim().parse();
-
-                match (num1, num2) {
-                    (Ok(n1), Ok(n2)) => {
-                        let result = subtraction(n1, n2);
-                        println!("Result: {}", result)
-                    }
-                    _ => println!("We encountered an error.")
-                }
+                let num1 = rust_input::int_input("Enter your first number:");
+                let num2 = rust_input::int_input("Enter your second number:");
+                let result = subtraction(num1, num2);
+                println!("{}", result);
             },
             "3" => {
-                let mut num1 = String::new();
-                let mut num2 = String::new();
-
-                println!("Enter your first number.");
-                io::stdin().read_line(&mut num1).expect("You wrote so wrong thing man...");
-                let num1: Result<i32, ParseIntError> = num1.trim().parse();
-                println!("Enter your second number.");
-                io::stdin().read_line(&mut num2).expect("You wrote so wrong thing man...");
-                let num2: Result<i32, ParseIntError> = num2.trim().parse();
-
-                match (num1, num2) {
-                    (Ok(n1), Ok(n2)) => {
-                        let result = multiplication(n1, n2);
-                        println!("Result: {}", result)
-                    }
-                    _ => println!("We encountered an error.")
-                }
+                let num1 = rust_input::int_input("Enter your first number:");
+                let num2 = rust_input::int_input("Enter your second number:");
+                let result = multiplication(num1, num2);
+                println!("{}", result);
             },
             "4" => {
-                let mut num1 = String::new();
-                let mut num2 = String::new();
-
-                println!("Enter your first number. (Numerator)");
-                io::stdin().read_line(&mut num1).expect("You wrote so wrong thing man...");
-                let num1: Result<i32, ParseIntError> = num1.trim().parse();
-                println!("Enter your second number. (Denominator)");
-                io::stdin().read_line(&mut num2).expect("You wrote so wrong thing man...");
-                let num2: Result<i32, ParseIntError> = num2.trim().parse();
-
-                match (num1, num2) {
-                    (Ok(n1), Ok(n2)) => {
-                        let result = dividing(n1, n2);
-                        println!("Result: {}", result)
-                    }
-                    _ => println!("We encountered an error.")
-                }
+                let num1 = rust_input::int_input("Enter your first number:");
+                let num2 = rust_input::int_input("Enter your second number:");
+                let result = dividing(num1, num2);
+                println!("{}", result);
             },
+            "5" => {
+                let num1 = rust_input::int_input("Enter your exponent's base:");
+                let num2 = rust_input::int_input("Enter your exponent's power:");
+                let result = exponent(num1, num2);
+                println!("{}", result)
+            },
+            "6" => { println!("See you next time!"); break; },
             _ => println!("Your entered number can't be found on list.")
         }
     }
+
     fn summary(num1: i32, num2: i32) -> i32 {
         return num1+num2;
     }
@@ -101,5 +58,16 @@ fn main() {
 
     fn dividing(num1: i32, num2: i32) -> i32 {
         return num1/num2
+    }
+
+    fn exponent(base: i32, power: i32) -> i32 {
+        let mut pwr = power - 1;
+        let mut result = base;
+        while pwr > 0 {
+            result = result * base;
+            pwr = pwr - 1;
+        }
+
+        return result;
     }
 }
