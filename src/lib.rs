@@ -10,8 +10,8 @@ pub fn multiplication(num1: i32, num2: i32) -> i32 {
     return num1*num2;
 }
 
-pub fn dividing(num1: i32, num2: i32) -> i32 {
-    return num1/num2
+pub fn dividing(num1: f64, num2: f64) -> f64 {
+    return num1/num2;
 }
 
 pub fn exponent(base: i32, power: i32) -> i32 {

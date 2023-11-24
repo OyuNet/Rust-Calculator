@@ -32,7 +32,7 @@ fn main() {
             "4" => {
                 let num1 = rust_input::int_input("Enter your first number:");
                 let num2 = rust_input::int_input("Enter your second number:");
-                let result = rust_calc::dividing(num1, num2);
+                let result = rust_calc::dividing(num1 as f64, num2 as f64);
                 println!("{}", result);
             },
             "5" => {
